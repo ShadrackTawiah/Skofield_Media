@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skofield Marketing | Start Your Journey</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff0050; /* TikTok Pink */
+            --text-dark: #2d3436;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            min-width: 280px;
+            max-width: 280px;
+            min-height: 100vh;
+            background: white;
+            transition: all 0.3s;
+            position: fixed;
+            z-index: 1000;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+        }
+
+        #sidebar.active {
+            margin-left: -280px;
+        }
+
+        .sidebar-header {
+            padding: 2rem;
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .nav-link {
+            padding: 1rem 2rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: #f8f9fa;
+            color: #667eea;
+            border-left: 4px solid #667eea;
+        }
+
+        /* Main Content */
+        #content {
+            width: 100%;
+            padding-left: 280px;
+            transition: all 0.3s;
+        }
+
+        #content.active {
+            padding-left: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary-gradient);
+            padding: 4rem 1rem;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 2rem 2rem;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.3);
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+
+        /* Cards */
+        .custom-card {
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Buttons */
+        .btn-cta {
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border-radius: 50px;
+        }
+        .btn-whatsapp:hover {
+            background-color: #1eb956;
+            color: white;
+        }
+
+        /* Video container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 992px) {
+            #sidebar { margin-left: -280px; }
+            #sidebar.active { margin-left: 0; }
+            #content { padding-left: 0; }
+            #content.active { padding-left: 0; }
+            .hero { padding: 3rem 1rem; }
+        }
+
+        .navbar-toggler {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Toggle -->
+    <button type="button" id="sidebarCollapse" class="navbar-toggler">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">Skofield</h4>
+            <small>Affiliate Specialist</small>
+        </div>
+
+        <ul class="list-unstyled components mt-3">
+            <li>
+                <a href="#home" class="nav-link"><i class="bi bi-house"></i> Home</a>
+            </li>
+            <li>
+                <a href="#about" class="nav-link"><i class="bi bi-person"></i> About Me</a>
+            </li>
+            <li>
+                <a href="#training" class="nav-link"><i class="bi bi-play-circle"></i> Watch Webinar</a>
+            </li>
+            <li>
+                <a href="https://wa.me/233537418840" target="_blank" class="nav-link"><i class="bi bi-whatsapp"></i> Chat Primary</a>
+            </li>
+            <li>
+                <a href="https://wa.me/233201901055" target="_blank" class="nav-link"><i class="bi bi-whatsapp"></i> Chat Secondary</a>
+            </li>
+            <li>
+                <a href="#contact" class="nav-link"><i class="bi bi-envelope"></i> Contact Me</a>
+            </li>
+        </ul>
+
+        <div class="p-4 text-center mt-auto">
+            <div class="social-icons">
+                <a href="https://www.tiktok.com/@skofieldmedia?_r=1&_t=ZS-95pmvy1glv8"><i class="bi bi-tiktok"></i></a>
+                    <a href="https://www.instagram.com/tawiah7221?igsh=d21ybGl6aG9jcGts&utm_source=qr"><i class="bi bi-instagram"></i></a>
+                <a href="https://wa.me/233537418840" target="_blank"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <!-- PHOTO INSTRUCTIONS: Replace the src below with your actual photo link -->
+                <img src="picture.jpeg" alt="Skofield Marketing" class="profile-img shadow">
+                <h1 class="display-6 fw-bold">Skofield Marketing</h1>
+                <p class="lead mb-4">Helping You Start Affiliate Marketing Today</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                    <a href="https://wa.me/233537418840" target="_blank" class="btn btn-cta btn-lg px-4">
+                        <i class="bi bi-whatsapp me-2"></i>Join My WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    
+              
+
+                    <!-- Webinar Section -->
+                    <div class="card custom-card" id="training">
+                        <div class="card-body p-4">
+                            <h2 class="h4 fw-bold mb-3"><i class="bi bi-star-fill me-2 text-warning"></i>Free Affiliate Training</h2>
+                            <p class="text-muted mb-4">Watch this short webinar to understand the exact 7-step process I use to generate income online.</p>
+                            <div class="video-container shadow-sm border">
+                                <!-- Replace with your YouTube ID -->
+                                <iframe src="Affiliate Marketing for Beginners - The 7 Step System WEBINAR.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div class="card custom-card p-4" id="contact">
+                        <div class="card-body">
+                            <h2 class="h4 fw-bold mb-4 text-center">Get In Touch</h2>
+                            
+                            <div class="row g-3 mb-4">
+                                <div class="col-12 col-md-6">
+                                    <a href="https://wa.me/233537418840" target="_blank" class="btn btn-whatsapp w-100 py-3 fw-bold shadow-sm">
+                                        <i class="bi bi-whatsapp me-2"></i>Primary WhatsApp
+                                    </a>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <a href="https://wa.me/233201901055" target="_blank" class="btn btn-whatsapp w-100 py-3 fw-bold shadow-sm" style="background-color: #128C7E;">
+                                        <i class="bi bi-whatsapp me-2"></i>Secondary WhatsApp
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <a href="mailto:mrwisdompro57@gmail.com" class="btn btn-light w-100 py-3 fw-bold border shadow-sm">
+                                        <i class="bi bi-envelope me-2"></i>mrwisdompro57@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <form id="contactForm" class="mt-4">
+                                <div class="mb-3 text-center">
+                                    <p class="small text-muted">Or fill this out to send a message to my WhatsApp:</p>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" id="userName" class="form-control form-control-lg bg-light border-0" placeholder="Your Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea id="userMessage" class="form-control form-control-lg bg-light border-0" rows="3" placeholder="How can I help you?" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-cta w-100 py-3">
+                                    <i class="bi bi-send me-2"></i>Send to My WhatsApp
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Final CTA -->
+                    <div class="text-center py-5">
+                        <h3 class="fw-bold mb-3">Ready to Start Earning Online?</h3>
+                        <p class="text-muted mb-4">Don't wait for the perfect moment. Take the first step today.</p>
+                        <a href="https://wa.me/233537418840" target="_blank" class="btn btn-cta btn-lg px-5">Join My Training Now</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-white py-4 border-top">
+            <div class="container text-center">
+                <div class="social-icons mb-3">
+                    <a href="https://www.tiktok.com/@skofieldmedia?_r=1&_t=ZS-95pmvy1glv8"><i class="bi bi-tiktok"></i></a>
+                    <a href="https://www.instagram.com/tawiah7221?igsh=d21ybGl6aG9jcGts&utm_source=qr"><i class="bi bi-instagram"></i></a>
+                    <a href="https://wa.me/233537418840" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                </div>
+                <p class="text-muted small mb-0">&copy; 2024 Skofield Marketing. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sidebar Toggle Logic
+        document.getElementById('sidebarCollapse').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('content').classList.toggle('active');
+        });
+
+        // Close sidebar on link click (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    document.getElementById('sidebar').classList.remove('active');
+                    document.getElementById('content').classList.remove('active');
+                }
+            });
+        });
+
+        // WhatsApp Form Submission Handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('userName').value;
+            const message = document.getElementById('userMessage').value;
+            const phoneNumber = "233537418840"; // Your Primary WhatsApp Number
+            
+            // Format the message for the URL
+            const encodedText = encodeURIComponent(`Hi Skofield, my name is ${name}. ${message}`);
+            
+            // Create the WhatsApp link
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+            
+            // Feedback UI
+            const btn = this.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-whatsapp"></i> Opening WhatsApp...';
+            btn.classList.replace('btn-cta', 'btn-success');
+            
+            // Redirect after a short delay
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                btn.innerHTML = originalText;
+                btn.classList.replace('btn-success', 'btn-cta');
+                this.reset();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
